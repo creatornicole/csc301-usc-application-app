@@ -1,0 +1,27 @@
+# Test Requests for TMM Application Web Application
+# database applications created if not exists when server is started
+
+# TODO: is that possible to do with Postman?
+
+### Get Data from Table 'applications'
+GET http://localhost:3003/applications
+
+### Post Data to Table 'applications'
+POST http://localhost:3003/apply
+Content-Type: application/json
+
+{
+    "name": "Max",
+    "birthdate": "1999-01-01",
+    "phonenumber": "+49 157 12345678", 
+    "address": "Musterstraße 23, 09648 Mittweida, Germany", 
+    "abbr": "mmusters", 
+    "course": "Applied Computer Science", 
+    "seminargroup": "IF21wS1-B", 
+    "position": "Driving Dynamics"
+}
+
+### Delete all Data from Table 'applications'
+DELETE http://localhost:3003/delete
+
+###
