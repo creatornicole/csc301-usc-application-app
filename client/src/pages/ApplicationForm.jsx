@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link} from 'react-router-dom'
+import axios from 'axios'
 
 function ApplicationForm() {
 
     const positionPlaceholder = "Change to your desired positon...";
     const [formData, setFormData] = useState({
         name: "",
-        birthdate: "",
+        birthdate: "2002/07/30",
         phonenumber: "",
         address: "",
         abbr: "",
@@ -15,8 +16,8 @@ function ApplicationForm() {
         position: positionPlaceholder
     });
 
-    /* Function is called anytime the value of the input changes. */
-    function handleInputChange(event) {
+    /* Called anytime the value of the input changes. */
+    const handleInputChange = (event) => {
         const { name, value } = event.target;
         setFormData(prevFormData => ({
             ...prevFormData,
@@ -24,9 +25,21 @@ function ApplicationForm() {
         }));
     }
 
-    function handleSubmit(e) {
+    /* Called when form is submitted, sends form data to express server */
+
+
+    const handleSubmit = async (e) => {
         e.preventDefault() // stop default behavior of loading the page
         console.log(formData) // logs form data
+        console.log(typeof(formData));
+
+        // send form data to express server
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_SERVER_API}/apply`, formData);
+            console.log('Form data submitted successfully:', response.data);
+        } catch (error) {
+            console.log('Error submitting form data:', error);
+        }
     }
 
     return (

@@ -1,14 +1,16 @@
 // backend nodejs express server that interacts with react app and postgreSQL db
 // dockerized in own container
 const express = require('express');
+const cors = require('cors');
 const client = require('./db.js'); // database file
-const port = process.env.PORT;
+const port = process.env.PORT; // define/find PORT inside .env
 
 const app = express()
+app.use(cors());
 app.use(express.json()) // allow server to receive json data
 app.use(express.urlencoded({ extended: true }));
 
-// create database table if does not exist when server is started
+// create database table if it does not exist when server is started
 const createTable = async() => {
     try {
         await client.query(`
@@ -21,7 +23,8 @@ const createTable = async() => {
                 abbr VARCHAR(25),
                 course VARCHAR(100),
                 seminargroup VARCHAR(25),
-                position VARCHAR(50)
+                
+                const VARCHAR(50)
             )
         `);
         console.log('Table "applications" up and running!');
@@ -52,6 +55,7 @@ app.post('/apply', async (req, res) => {
     // use paramterized queries or an ORM (Object-Relational Mapping)
     // -> see course material
     const { name, birthdate, phonenumber, address, abbr, course, seminargroup, position } = req.body
+    console.log(req.body);
     try {
         await client.query('INSERT INTO applications (name, birthdate, phonenumber, address, abbr, course, seminargroup, position)'
             + ' VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', 
