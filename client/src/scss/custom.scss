@@ -1,9 +1,37 @@
+// import other custom stylesheets
+@use 'variables'; // contains variables for the web page
+@use 'navigation'; // Navigation
+@use 'start'; // LandingPage
+@use 'footer'; // Footer
+
+// change the theme
+$theme-colors: (
+    "primary": variables.$tmm-red,
+);
+
 // import Bootstrap SCSS
 @import '../../node_modules/bootstrap/scss/bootstrap';
 
-// variables
-$dark-bg-color: #5D5F5D;
-
 body {
-    background-color: $dark-bg-color;
+    background-color: variables.$dark-grey;
+    text-align: center;
+    height: 100vh;
+    width: 100vw;
+    margin: 0 auto;
+    padding: 0;
 }
+
+h1 {
+    color: variables.$light-headline-color;
+    font-size: 5rem;
+    font-family: variables.$font-family-headline;
+}
+
+// styling of Link element of react-router-dom
+.link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+

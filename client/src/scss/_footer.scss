@@ -1,0 +1,58 @@
+@use 'variables'; // contains variables for the web page
+
+footer {
+    background-color: variables.$light-grey;
+    width: 100vw;
+    position: absolute;
+    bottom: 0;
+    padding: 3rem;
+
+    img {
+        margin-right: 3rem;
+    }
+    
+    button {
+        color: variables.$light-grey;
+        border: none;
+        border-radius: 50%; // 50% makes buttons round
+        height: 40px;
+        width: 40px;
+        margin: 10px;
+    }
+
+    .fb {
+        background-color: variables.$fb-blue;
+        box-shadow: variables.$box-shadow variables.$fb-blue;
+    }
+
+    .fb:hover {
+        box-shadow: variables.$box-shadow-hover variables.$fb-blue;
+    }
+
+    .insta {
+        background-color: variables.$insta-pink;
+        box-shadow: variables.$box-shadow variables.$insta-pink;
+    }
+
+    .insta:hover {
+        box-shadow: variables.$box-shadow-hover variables.$insta-pink;
+    }
+
+    .yt {
+        background-color: variables.$tmm-red;
+        box-shadow: variables.$box-shadow variables.$tmm-red;
+    }
+
+    .yt:hover {
+        box-shadow: variables.$box-shadow-hover variables.$tmm-red;
+    }
+
+    .linkedin {
+        background-color: variables.$linkedin-blue;
+        box-shadow: variables.$box-shadow variables.$linkedin-blue;
+    }
+
+    .linkedin:hover {
+        box-shadow: variables.$box-shadow-hover variables.$linkedin-blue;
+    }
+}

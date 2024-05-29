@@ -1,6 +1,6 @@
-import { Button, Navbar, Nav, Container } from 'react-bootstrap'
+import { Navbar, Nav, Container } from 'react-bootstrap'
 
-function Header() {
+function Navigation() {
     return (
         <Navbar>
             <Container>
@@ -8,8 +8,8 @@ function Header() {
                     <img 
                         alt=""
                         src="/images/logo-red_white.png"
-                        width="230px"
-                        height="120px"
+                        width="150px"
+                        height="80px"
                     />
                 </Navbar.Brand>
                 <Nav.Link>Login</Nav.Link> {/* TODO: either Login/Logout */}
@@ -18,4 +18,4 @@ function Header() {
     );
 }
 
-export default Header
+export default Navigation
