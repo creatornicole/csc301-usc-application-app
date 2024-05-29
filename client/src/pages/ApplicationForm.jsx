@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link} from 'react-router-dom'
 import { z } from 'zod'
 import axios from 'axios'
+import { Form } from 'react-bootstrap'
 
 function ApplicationForm() {
     // State Variables
@@ -139,56 +140,55 @@ function ApplicationForm() {
 
     // content of component: display form
     return (
-        <form onSubmit={handleSubmit}> {/* handleSubmit passes results (= form values) to handleSave */}
+        <Form onSubmit={handleSubmit}>
             <h1>Apply for a Membership</h1>
             <Link to="/intranet">Login</Link>
-            <br />
 
-            <div id="inputName">
-                <label htmlFor="name">Name:</label>
-                <input type="text" name="name" id="name" value={formData.name} onChange={handleInputChange}/>
-                <span className="error"></span>
-            </div>
+            <Form.Group id="inputName">
+                <Form.Label htmlFor="name">Name</Form.Label>
+                <Form.Control type="text" name="name" id="name" value={formData.name} onChange={handleInputChange} />
+                <Form.Text className="error"></Form.Text>
+            </Form.Group>
 
-            <div id="inputBirthdate">
-                <label htmlFor="birthdate">Date of Birth (DD/MM/YYYY):</label>
-                <input type="text" name="birthdate" id="birthdate" value={formData.birthdate} onChange={handleInputChange} />
-                <span className="error"></span>
-            </div>
+            <Form.Group id="inputBirthdate">
+                <Form.Label htmlFor="birthdate">Date of Birth (DD/MM/YYYY):</Form.Label>
+                <Form.Control type="text" name="birthdate" id="birthdate" value={formData.birthdate} onChange={handleInputChange} />
+                <Form.Text className="error"></Form.Text>
+            </Form.Group>
 
-            <div id="inputPhonenumber">
-                <label htmlFor="phonenumber">Phone Number:</label>
-                <input type="text" name="phonenumber" id="phonenumber" value={formData.phonenumber} onChange={handleInputChange}/>
-                <span className="error"></span>
-            </div>
+            <Form.Group id="inputPhonenumber">
+                <Form.Label htmlFor="phonenumber">Phone Number:</Form.Label>
+                <Form.Control type="text" name="phonenumber" id="phonenumber" value={formData.phonenumber} onChange={handleInputChange} />
+                <Form.Text className="error"></Form.Text>
+            </Form.Group>
 
-            <div id="inputAddress">
-                <label htmlFor="address">Address During Studies:</label>
-                <input type="text" name="address" id="address" value={formData.address} onChange={handleInputChange}/>
-                <span className="error"></span>
-            </div>
+            <Form.Group id="inputAddress">
+                <Form.Label htmlFor="address">Address During Studies:</Form.Label>
+                <Form.Control type="text" name="address" id="address" value={formData.address} onChange={handleInputChange} />
+                <Form.Text className="error"></Form.Text>
+            </Form.Group>
 
-            <div id="inputAbbr">
-                <label htmlFor="abbr">University Mailing Address (vsurname@hs-mittweida.de):</label>
-                <input type="text" name="abbr" id="abbr" value={formData.abbr} onChange={handleInputChange}/>
-                <span className="error"></span>
-            </div>
+            <Form.Group id="inputAbbr">
+                <Form.Label htmlFor="abbr">University Mailing Address (vsurname@hs-mittweida.de):</Form.Label>
+                <Form.Control type="text" name="abbr" id="abbr" value={formData.abbr} onChange={handleInputChange} />
+                <Form.Text className="error"></Form.Text>
+            </Form.Group>
 
-            <div id="inputCourse">
-                <label htmlFor="course">Course of Study:</label>
-                <input type="text" name="course" id="course" value={formData.course} onChange={handleInputChange}/>
-                <span className="error"></span>
-            </div>
+            <Form.Group id="inputCourse">
+                <Form.Label htmlFor="course">Course of Study:</Form.Label>
+                <Form.Control type="text" name="course" id="course" value={formData.course} onChange={handleInputChange} />
+                <Form.Text className="error"></Form.Text>
+            </Form.Group>
 
-            <div id="inputSeminargroup">
-                <label htmlFor="seminargroup">Seminar Group (IF21wS1-B):</label>
-                <input type="text" name="seminargroup" id="seminargroup" value={formData.seminargroup} onChange={handleInputChange}/>
-                <span className="error"></span>
-            </div>
+            <Form.Group id="inputSeminargroup">
+                <Form.Label htmlFor="seminargroup">Seminar Group (IF21wS1-B):</Form.Label>
+                <Form.Control type="text" name="seminargroup" id="seminargroup" value={formData.seminargroup} onChange={handleInputChange} />
+                <Form.Text className="error"></Form.Text>
+            </Form.Group>
 
-            <div id="inputPosition">
-                <label htmlFor="position">Desired Position:</label>
-                <select name="position" id="position" value={formData.position} onChange={handleInputChange}>
+            <Form.Group id="inputPosition">
+                <Form.Label htmlFor="position">Desired Position:</Form.Label>
+                <Form.Select name="position" id="position" value={formData.position} onChange={handleInputChange}>
                     <option value={positionPlaceholder} disabled>{positionPlaceholder}</option> {/* Placeholder */}
                     <option value="battery">{possiblePositions['battery']}</option>
                     <option value="pcbs">{possiblePositions['pcbs']}</option> 
@@ -206,9 +206,9 @@ function ApplicationForm() {
                     <option value="socialmedia">{possiblePositions['socialmedia']}</option>
                     <option value="organisation">{possiblePositions['organisation']}</option>
                     <option value="sponsoring">{possiblePositions['sponsoring']}</option>
-                </select>
-                <span className="error"></span>
-            </div>
+                </Form.Select>
+                <Form.Text className="error"></Form.Text>
+            </Form.Group>
 
             {/* following <p> only for debugging purposes */}
             <p>Name Value: {formData.name} <br />
@@ -222,7 +222,7 @@ function ApplicationForm() {
             </p>
 
             <input type="submit" value="Submit" />
-        </form>
+        </Form>
         // maybe useNavigate to handle form submission
     );
 }

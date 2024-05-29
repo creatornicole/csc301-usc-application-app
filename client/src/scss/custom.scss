@@ -1,0 +1,9 @@
+// import Bootstrap SCSS
+@import '../../node_modules/bootstrap/scss/bootstrap';
+
+// variables
+$dark-bg-color: #5D5F5D;
+
+body {
+    background-color: $dark-bg-color;
+}

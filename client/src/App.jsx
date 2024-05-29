@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { BrowserRouter } from 'react-router-dom'
-import { Routes } from 'react-router-dom'
-import { Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-/* Pages/Components */
-import Navbar from './pages/Navbar'
+// Bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css'
+
+// Pages/Components
+import Header from './pages/Header'
 import Footer from './pages/Footer'
 import LandingPage from './pages/LandingPage'
 import ApplicationForm from './pages/ApplicationForm'
@@ -24,7 +25,7 @@ function App() {
       <div className='App'>
         <BrowserRouter>
           {/* Fixed Navbar */}
-          <Navbar />
+          <Header />
           {/* Dynamic Webcontent */}
           {/* path = the URL, element = the component that needs to be rendered for that URL */}
           <Routes>
