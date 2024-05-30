@@ -2,13 +2,10 @@
 
 footer {
     background-color: variables.$light-grey;
-    width: 100vw;
-    position: absolute;
-    bottom: 0;
     padding: 3rem;
 
     img {
-        margin-right: 3rem;
+        margin: 0 1rem 1rem 1rem;
     }
     
     button {
@@ -54,5 +51,11 @@ footer {
 
     .linkedin:hover {
         box-shadow: variables.$box-shadow-hover variables.$linkedin-blue;
+    }
+}
+
+@media (max-width: 768px) {
+    a {
+        display: block;
     }
 }

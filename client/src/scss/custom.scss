@@ -13,6 +13,7 @@ $theme-colors: (
 @import '../../node_modules/bootstrap/scss/bootstrap';
 
 body {
+    color: variables.$light-paragraph-color;
     background-color: variables.$dark-grey;
     text-align: center;
     height: 100vh;
