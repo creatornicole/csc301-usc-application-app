@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { Link} from 'react-router-dom'
 import { z } from 'zod'
 import axios from 'axios'
-import { Form } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 
 function ApplicationForm() {
     // State Variables
     const positionPlaceholder = "Change to your desired positon...";
     const [formData, setFormData] = useState({
         name: "",
-        birthdate: "2002/07/30",
+        birthdate: "",
         phonenumber: "",
         address: "",
         abbr: "",
@@ -17,6 +17,8 @@ function ApplicationForm() {
         seminargroup: "",
         position: positionPlaceholder
     });
+
+    const [successMsg, setSuccessMsg] = useState('');
 
     // Set possible positions to choose from
     const possiblePositions = {
@@ -110,7 +112,9 @@ function ApplicationForm() {
                         break;
                 }
                 if(errorId && !document.querySelector(`#${errorId} .error`).innerHTML) {
-                    document.querySelector(`#${errorId} .error`).innerHTML = error.message;
+                    document.querySelector(`#${errorId} .error`).innerHTML = `
+                        <i class="fa-solid fa-xmark"></i> ${error.message}
+                    `;
                     errorId = '';
                 }
             })
@@ -132,97 +136,106 @@ function ApplicationForm() {
             try {
                 const response = await axios.post(`${import.meta.env.VITE_SERVER_API}/apply`, formData);
                 console.log('Form data submitted successfully:', response.data);
+                // reset form and show message in case of successful submission
+                resetForm();
+                setSuccessMsg('<i class="fa-solid fa-check"></i> Application successfully submitted');
             } catch (error) {
                 console.log('Error submitting form data:', error);
             }
         }
     }
 
+    // clear all labels after successfully submitting
+    const resetForm = () => {
+        setFormData({
+            name: "",
+            birthdate: "",
+            phonenumber: "",
+            address: "",
+            abbr: "",
+            course: "",
+            seminargroup: "",
+            position: positionPlaceholder
+        });
+    } 
+
     // content of component: display form
     return (
-        <Form onSubmit={handleSubmit}>
+        <div>
             <h1>Apply for a Membership</h1>
-            <Link to="/intranet">Login</Link>
+            <Form id="applicationForm" onSubmit={handleSubmit}>
+                <Form.Group id="inputName" className="form-group">
+                    <Form.Label htmlFor="name">Name</Form.Label>
+                    <Form.Control type="text" name="name" id="name" value={formData.name} onChange={handleInputChange} />
+                    <Form.Text className="error"></Form.Text>
+                </Form.Group>
 
-            <Form.Group id="inputName">
-                <Form.Label htmlFor="name">Name</Form.Label>
-                <Form.Control type="text" name="name" id="name" value={formData.name} onChange={handleInputChange} />
-                <Form.Text className="error"></Form.Text>
-            </Form.Group>
+                <Form.Group id="inputBirthdate" className="form-group">
+                    <Form.Label htmlFor="birthdate">Date of Birth (DD/MM/YYYY):</Form.Label>
+                    <Form.Control type="text" name="birthdate" id="birthdate" value={formData.birthdate} onChange={handleInputChange} />
+                    <Form.Text className="error"></Form.Text>
+                </Form.Group>
 
-            <Form.Group id="inputBirthdate">
-                <Form.Label htmlFor="birthdate">Date of Birth (DD/MM/YYYY):</Form.Label>
-                <Form.Control type="text" name="birthdate" id="birthdate" value={formData.birthdate} onChange={handleInputChange} />
-                <Form.Text className="error"></Form.Text>
-            </Form.Group>
+                <Form.Group id="inputPhonenumber" className="form-group">
+                    <Form.Label htmlFor="phonenumber">Phone Number:</Form.Label>
+                    <Form.Control type="text" name="phonenumber" id="phonenumber" value={formData.phonenumber} onChange={handleInputChange} />
+                    <Form.Text className="error"></Form.Text>
+                </Form.Group>
 
-            <Form.Group id="inputPhonenumber">
-                <Form.Label htmlFor="phonenumber">Phone Number:</Form.Label>
-                <Form.Control type="text" name="phonenumber" id="phonenumber" value={formData.phonenumber} onChange={handleInputChange} />
-                <Form.Text className="error"></Form.Text>
-            </Form.Group>
+                <Form.Group id="inputAddress" className="form-group">
+                    <Form.Label htmlFor="address">Address During Studies:</Form.Label>
+                    <Form.Control type="text" name="address" id="address" value={formData.address} onChange={handleInputChange} />
+                    <Form.Text className="error"></Form.Text>
+                </Form.Group>
 
-            <Form.Group id="inputAddress">
-                <Form.Label htmlFor="address">Address During Studies:</Form.Label>
-                <Form.Control type="text" name="address" id="address" value={formData.address} onChange={handleInputChange} />
-                <Form.Text className="error"></Form.Text>
-            </Form.Group>
+                <Form.Group id="inputAbbr" className="form-group"> 
+                    <Form.Label htmlFor="abbr">University Mailing Address (vsurname@hs-mittweida.de):</Form.Label>
+                    <Form.Control type="text" name="abbr" id="abbr" value={formData.abbr} onChange={handleInputChange} />
+                    <Form.Text className="error"></Form.Text>
+                </Form.Group>
 
-            <Form.Group id="inputAbbr">
-                <Form.Label htmlFor="abbr">University Mailing Address (vsurname@hs-mittweida.de):</Form.Label>
-                <Form.Control type="text" name="abbr" id="abbr" value={formData.abbr} onChange={handleInputChange} />
-                <Form.Text className="error"></Form.Text>
-            </Form.Group>
+                <Form.Group id="inputCourse" className="form-group">
+                    <Form.Label htmlFor="course">Course of Study:</Form.Label>
+                    <Form.Control type="text" name="course" id="course" value={formData.course} onChange={handleInputChange} />
+                    <Form.Text className="error"></Form.Text>
+                </Form.Group>
 
-            <Form.Group id="inputCourse">
-                <Form.Label htmlFor="course">Course of Study:</Form.Label>
-                <Form.Control type="text" name="course" id="course" value={formData.course} onChange={handleInputChange} />
-                <Form.Text className="error"></Form.Text>
-            </Form.Group>
+                <Form.Group id="inputSeminargroup" className="form-group">
+                    <Form.Label htmlFor="seminargroup">Seminar Group (IF21wS1-B):</Form.Label>
+                    <Form.Control type="text" name="seminargroup" id="seminargroup" value={formData.seminargroup} onChange={handleInputChange} />
+                    <Form.Text className="error"></Form.Text>
+                </Form.Group>
 
-            <Form.Group id="inputSeminargroup">
-                <Form.Label htmlFor="seminargroup">Seminar Group (IF21wS1-B):</Form.Label>
-                <Form.Control type="text" name="seminargroup" id="seminargroup" value={formData.seminargroup} onChange={handleInputChange} />
-                <Form.Text className="error"></Form.Text>
-            </Form.Group>
-
-            <Form.Group id="inputPosition">
-                <Form.Label htmlFor="position">Desired Position:</Form.Label>
-                <Form.Select name="position" id="position" value={formData.position} onChange={handleInputChange}>
-                    <option value={positionPlaceholder} disabled>{positionPlaceholder}</option> {/* Placeholder */}
-                    <option value="battery">{possiblePositions['battery']}</option>
-                    <option value="pcbs">{possiblePositions['pcbs']}</option> 
-                    <option value="harness">{possiblePositions['harness']}</option>
-                    <option value="bms">{possiblePositions['bms']}</option>
-                    <option value="can">{possiblePositions['can']}</option>
-                    <option value="vcu">{possiblePositions['vcu']}</option>
-                    <option value="dynamics">{possiblePositions['dynamics']}</option>
-                    <option value="mechanics">{possiblePositions['mechanics']}</option>
-                    <option value="bodywork">{possiblePositions['bodywork']}</option>
-                    <option value="cr">{possiblePositions['cr']}</option>
-                    <option value="bp">{possiblePositions['bp']}</option>
-                    <option value="photo">{possiblePositions['photo']}</option>
-                    <option value="layout">{possiblePositions['layout']}</option>
-                    <option value="socialmedia">{possiblePositions['socialmedia']}</option>
-                    <option value="organisation">{possiblePositions['organisation']}</option>
-                    <option value="sponsoring">{possiblePositions['sponsoring']}</option>
-                </Form.Select>
-                <Form.Text className="error"></Form.Text>
-            </Form.Group>
-
-            {/* following <p> only for debugging purposes */}
-            <p>Name Value: {formData.name} <br />
-                Birthdate: {formData.birthdate} <br />
-                Phone Number: {formData.phonenumber} <br />
-                Address: {formData.address} <br />
-                HS-Abbr: {formData.abbr} <br />
-                Course: {formData.course} <br />
-                Seminargroup: {formData.seminargroup} <br />
-                Position: {formData.position} <br />
-            </p>
-
-            <input type="submit" value="Submit" />
-        </Form>
+                <Form.Group id="inputPosition" className="form-group">
+                    <Form.Label htmlFor="position">Desired Position:</Form.Label>
+                    <Form.Select name="position" id="position" value={formData.position} onChange={handleInputChange}>
+                        <option value={positionPlaceholder} disabled>{positionPlaceholder}</option> {/* Placeholder */}
+                        <option value="battery">{possiblePositions['battery']}</option>
+                        <option value="pcbs">{possiblePositions['pcbs']}</option> 
+                        <option value="harness">{possiblePositions['harness']}</option>
+                        <option value="bms">{possiblePositions['bms']}</option>
+                        <option value="can">{possiblePositions['can']}</option>
+                        <option value="vcu">{possiblePositions['vcu']}</option>
+                        <option value="dynamics">{possiblePositions['dynamics']}</option>
+                        <option value="mechanics">{possiblePositions['mechanics']}</option>
+                        <option value="bodywork">{possiblePositions['bodywork']}</option>
+                        <option value="cr">{possiblePositions['cr']}</option>
+                        <option value="bp">{possiblePositions['bp']}</option>
+                        <option value="photo">{possiblePositions['photo']}</option>
+                        <option value="layout">{possiblePositions['layout']}</option>
+                        <option value="socialmedia">{possiblePositions['socialmedia']}</option>
+                        <option value="organisation">{possiblePositions['organisation']}</option>
+                        <option value="sponsoring">{possiblePositions['sponsoring']}</option>
+                    </Form.Select>
+                    <Form.Text className="error"></Form.Text>
+                </Form.Group>
+                
+                <div className="submit-section">
+                    <Button type="submit" variant='primary'>Submit</Button>
+                    {successMsg && <p className="success" dangerouslySetInnerHTML={{ __html: successMsg }}></p>}
+                </div>
+            </Form>
+        </div>
         // maybe useNavigate to handle form submission
     );
 }

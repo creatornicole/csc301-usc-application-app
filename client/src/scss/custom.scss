@@ -2,6 +2,7 @@
 @use 'variables'; // contains variables for the web page
 @use 'navigation'; // Navigation
 @use 'start'; // LandingPage
+@use 'form'; // ApplicationForm
 @use 'footer'; // Footer
 
 // change the theme
@@ -15,6 +16,7 @@ $theme-colors: (
 body {
     color: variables.$light-paragraph-color;
     background-color: variables.$dark-grey;
+    font-family: variables.$font-family-general;
     text-align: center;
     height: 100vh;
     width: 100vw;
@@ -29,10 +31,19 @@ h1 {
 }
 
 // styling of Link element of react-router-dom
+// make sure to add to each Link element of react-router-dom
 .link {
-    color: white;
+    color: variables.$light-paragraph-color;
     text-decoration: none;
+    font-family: variables.$font-family-headline;
     font-weight: 500;
+    font-size: 21px;
+}
+
+button {
+    font-family: variables.$font-family-headline;
+    font-weight: 500;
+    font-size: 21px;
 }
 
 

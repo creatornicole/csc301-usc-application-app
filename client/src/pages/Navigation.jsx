@@ -1,3 +1,4 @@
+import { Link} from 'react-router-dom'
 import { Navbar, Nav, Container } from 'react-bootstrap'
 
 function Navigation() {
@@ -12,7 +13,9 @@ function Navigation() {
                         height="80px"
                     />
                 </Navbar.Brand>
-                <Nav.Link>Login</Nav.Link> {/* TODO: either Login/Logout */}
+                <Nav.Link as={Link} className="link" to="/intranet">
+                    Login {/* TODO: either Login/Logout */}
+                </Nav.Link> 
             </Container>
         </Navbar>  
     );

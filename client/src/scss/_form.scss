@@ -1,0 +1,27 @@
+@use 'variables'; // contains variables for the web page
+
+form {
+    text-align: left;
+    width: 40%;
+    margin: 4rem auto 0 auto;
+
+    .form-group {
+        margin-bottom: 28px;
+    }
+
+    .error {
+        color: variables.$error-red;
+        font-weight: 500;
+        font-size: 15px;
+    }
+
+    .success {
+        color: variables.$success-green;
+        font-weight: 500;
+        font-size: 15px;
+    }
+
+    .submit-section {
+        text-align: center;
+    }
+}
