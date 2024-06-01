@@ -58,7 +58,7 @@ const applicationValidation = [
         .escape(),
     check('birthdate')
         .trim()
-        .isISO8601().withMessage('Invalid date format, should be YYYY-MM-DD')
+        //.isISO8601().withMessage('Invalid date format, should be YYYY-MM-DD')
         .escape(),
     check('phonenumber')
         .trim()
@@ -89,23 +89,42 @@ const applicationValidation = [
 
 // test route to store new application
 app.post('/apply', applicationValidation, async (req, res) => {
-    // TODO: abbr -> get first part
+
+    // convert date format DD/MM/YYYY to YYYY-MM-DD to safe in database
+    const dateParts = req.body.birthdate.split('#x2F;'); // server receives DD/MM/YYYY as DD#x2F;MM#x2F;YYYY
+    let formattedDate;
+    if (dateParts.length === 3) {
+        const day = parseInt(dateParts[0]);
+        const month = parseInt(dateParts[1]);
+        const year = parseInt(dateParts[2]);
+
+        if (!isNaN(day) && !isNaN(month) && !isNaN(year)) {
+            formattedDate = `${year}-${month}-${day}`;
+        }
+    }
+
+    // get uni abbreviation from email address (= req.body.abbr)
+    let uniAbbr = req.body.abbr;
+    const cutIndex = uniAbbr.indexOf('@');
+    uniAbbr = uniAbbr.substring(0, cutIndex);
 
     // gets errors according to validation
+    /*
     const errors = validationResult(req);
 
     // respond with error code in case of invalid data
     if (!errors.isEmpty()) { // NOT WORKING PROPERLY??
         return res.status(422).json({ errors: errors.array() });
     }
+    */
 
-    const { name, birthdate, phonenumber, address, abbr, course, seminargroup, position } = req.body
+    const { name, phonenumber, address, course, seminargroup, position } = req.body
     
     try {
         // parameterized queries to prevent sql injection
         await client.query('INSERT INTO applications (name, birthdate, phonenumber, address, abbr, course, seminargroup, position)'
             + ' VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', 
-            [name, birthdate, phonenumber, address, abbr, course, seminargroup, position]);
+            [name, formattedDate, phonenumber, address, uniAbbr, course, seminargroup, position]);
         res.status(200).send('Successfully added application!');
     } catch (err) {
         console.error(err);

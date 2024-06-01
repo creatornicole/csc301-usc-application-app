@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { z } from 'zod'
 import axios from 'axios'
 import { Form, Button } from 'react-bootstrap'
+// get possible team positions
+import { possiblePositions } from '../helper/positions.js';
 
 function ApplicationForm() {
     // State Variables
@@ -19,26 +21,6 @@ function ApplicationForm() {
 
     const [successMsg, setSuccessMsg] = useState('');
 
-    // Set possible positions to choose from
-    const possiblePositions = {
-        battery: 'Battery', // DE: Akku
-        pcbs: 'Circuit Boards', // DE: Platinen
-        harness: 'Wire Harness', // DE: Kabelbaum
-        bms: 'Battery Management System (BMS)', // DE: BMS
-        can: 'CAN&Data', // DE: CAN&Data
-        vcu: 'Vehicle Control Unit (VCU)', // DE: VCU
-        dynamics: 'Driving Dynamics', // DE: Fahrdynamik
-        mechanics: 'Mechanical Drive', // DE: Mechanischer Antrieb
-        bodywork: 'Bodywork', // DE: Karosserie
-        cr: 'Cost Report', // DE: Cost Report
-        bp: 'Business Plan', // DE: Business Plan
-        photo: 'Photo/Video', // DE: Foto/Video
-        layout: 'Layout', // DE: Layout
-        socialmedia: 'Social Media', // DE: Öffentlichkeitsarbeit
-        organisation: 'Organisation', // DE: Organisation
-        sponsoring: 'Sponsoring' // DE: Sponsoring
-    }
-
     // Set validation schema
     // TODO: add max to validate with db setting or do this in server?
     const applicationSchema = z.object({
@@ -46,7 +28,7 @@ function ApplicationForm() {
             .min(1, { message: 'Name is required.'}),
         birthdate: z.string().trim()
             .min(1, { message: 'Date of Birth is required.'})
-            .regex(/^\d{4}-\d{2}-\d{2}$/, { message: 'Birthdate must be in the format YYYY-MM-DD'}), ///^\d{2}\.\d{2}\.\d{4}$/
+            .regex(/^\d{2}\/\d{2}\/\d{4}$/, { message: 'Birthdate must be in the format DD/MM/YYYY'}), /////^\d{2}\.\d{2}\.\d{4}$/
         phonenumber: z.string().trim()
             .min(1, { message: 'Phone Number is required.'}),
         address: z.string().trim()

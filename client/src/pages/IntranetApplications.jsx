@@ -3,6 +3,8 @@ import IntranetNavbar from './IntranetNavbar'
 import Table from 'react-bootstrap/Table'
 import axios from 'axios'
 import { useEffect, useState } from 'react';
+// get possible team positions
+import { possiblePositions } from '../helper/positions.js';
 
 function IntranetApplications() {
     const [applications, setApplications] = useState([]);
@@ -27,6 +29,15 @@ function IntranetApplications() {
         } catch (error) {
             console.error('Error deleting application: ', error);
         }
+    }
+
+    // converts to DD/MM/YYYY from date format ISO8601
+    const convertDateFormat = (date) => {
+        const dateObject = new Date(date);
+        const day = dateObject.getUTCDate().toString().padStart(2, '0');
+        const month = (dateObject.getUTCMonth() + 1).toString().padStart(2, '0');
+        const year = dateObject.getUTCFullYear();
+        return `${day}/${month}/${year}`;
     }
 
     return (
@@ -56,13 +67,13 @@ function IntranetApplications() {
                                 <tr key={application.id}>
                                     <td>{index + 1}</td>
                                     <td>{application.name}</td>
-                                    <td>{application.birthdate}</td>
+                                    <td>{convertDateFormat(application.birthdate)}</td>
                                     <td>{application.phonenumber}</td>
                                     <td>{application.address}</td>
                                     <td>{application.abbr}</td>
                                     <td>{application.course}</td>
                                     <td>{application.seminargroup}</td>
-                                    <td>{application.position}</td>
+                                    <td>{possiblePositions[application.position]}</td>
                                     <td>
                                        <i onClick={() => handleDelete(application.id)}
                                             className="fa-solid fa-user-minus"></i>
