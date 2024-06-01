@@ -146,9 +146,8 @@ app.post('/login', loginValidate, (req, res) => {
   	return res.status(422).json({ errors: errors.array() });
   }
   else {
-. // Insert Login Code Here
-. let username = req.body.username;
-. let password = req.body.password;
-. res.send(`Username: ${username} Password: ${password}`);
-  }
+  // Insert Login Code Here
+  let username = req.body.username;
+  let password = req.body.password;
+  res.send(`Username: ${username} Password: ${password}`);  }
 });

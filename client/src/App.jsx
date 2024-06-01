@@ -15,6 +15,9 @@ import ApplicationForm from './pages/ApplicationForm'
 import IntranetOverview from './pages/IntranetOverview'
 import Applications from './pages/Applications'
 
+// Helper
+import BackgroundChanger from './helper/BackgroundChanger'
+
 
 
 function App() {
@@ -24,18 +27,20 @@ function App() {
     <>
       <div className='App'>
         <BrowserRouter>
-          {/* Fixed Navbar */}
-          <Navigation />
-          {/* Dynamic Webcontent */}
-          {/* path = the URL, element = the component that needs to be rendered for that URL */}
-          <Routes>
-            <Route path="/" element={<LandingPage />}></Route>
-            <Route path="/application" element={<ApplicationForm />}></Route>
-            <Route path="/intranet" element={<IntranetOverview />}></Route>
-            <Route path="/intranet/applications" element={<Applications />}></Route>
-          </Routes>
-          {/* Fixed Footer */}
-          <Footer />
+          <BackgroundChanger>
+              {/* Fixed Navbar */}
+              <Navigation />
+              {/* Dynamic Webcontent */}
+              {/* path = the URL, element = the component that needs to be rendered for that URL */}
+              <Routes>
+                <Route path="/" element={<LandingPage />}></Route>
+                <Route path="/application" element={<ApplicationForm />}></Route>
+                <Route path="/intranet" element={<IntranetOverview />}></Route>
+                <Route path="/intranet/applications" element={<Applications />}></Route>
+              </Routes>
+              {/* Fixed Footer */}
+              <Footer />
+          </BackgroundChanger>
         </BrowserRouter>
       </div>
     </>

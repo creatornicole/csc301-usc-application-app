@@ -161,7 +161,7 @@ function ApplicationForm() {
 
     // content of component: display form
     return (
-        <div>
+        <div className="mainContent">
             <h1>Apply for a Membership</h1>
             <Form id="applicationForm" onSubmit={handleSubmit}>
                 <Form.Group id="inputName" className="form-group">
