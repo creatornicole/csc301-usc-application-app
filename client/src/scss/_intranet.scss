@@ -1,0 +1,15 @@
+@use 'variables'; // contains variables for the web page
+
+.intranet {
+    min-height: variables.$min-height;
+    //padding-top: variables.$main-content-padding-top;
+
+    nav {
+        background-color: variables.$mid-grey;
+
+        a {
+            color: variables.$dark-grey;
+            margin-left: 30px;
+        }
+    }
+}

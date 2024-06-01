@@ -3,6 +3,7 @@
 @use 'navigation'; // Navigation
 @use 'start'; // LandingPage
 @use 'form'; // ApplicationForm
+@use 'intranet'; // IntranetOverview
 @use 'footer'; // Footer
 
 // change the theme
@@ -22,8 +23,8 @@ body {
     padding: 0;
 
     .mainContent {
-        min-height: 72vh;
-        padding-top: 75px;
+        min-height: variables.$min-height;
+        padding-top: variables.$main-content-padding-top;
     }
 }
 

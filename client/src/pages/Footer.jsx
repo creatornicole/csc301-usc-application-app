@@ -30,7 +30,7 @@ function Footer() {
                 <img 
                     alt=""
                     src="/images/logo-red_grey.png"
-                    class="footer-logo"
+                    className="footer-logo"
                     width="140px"
                     height="75px"
                 />
