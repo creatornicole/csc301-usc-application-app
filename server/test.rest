@@ -6,6 +6,10 @@
 ### Get Data from Table 'applications'
 GET http://localhost:3003/applications
 
+###
+
+DELETE http://localhost:3003/delete/application/11
+
 ### Post Data to Table 'applications'
 POST http://localhost:3003/apply
 Content-Type: application/json
@@ -23,5 +27,17 @@ Content-Type: application/json
 
 ### Delete all Data from Table 'applications'
 DELETE http://localhost:3003/delete
+
+// add the following function to server.js to make use of test request
+// test route to delete everything from the 'applications' table
+// app.delete('/delete', async (req, res) => {
+    //try {
+        //await client.query('DELETE FROM applications')
+        //res.status(200).send('Successfully deleted everything from table!');
+    //} catch (err) {
+        //console.error(err)
+        //res.status(500).send('Internal Server Error');
+    //}
+//})
 
 ###

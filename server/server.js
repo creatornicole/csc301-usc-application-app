@@ -31,21 +31,21 @@ const createTable = async() => {
         `);
         console.log('Table "applications" up and running!');
     } catch (err) {
-        console.log('Error creating table:', err);
+        console.error('Error creating table:', err);
     }
 };
 createTable();
 
 // routes
-// test route to get all stored applications
+// get all stored applications
 app.get('/applications', async (req, res) => {
     try {
-        const data = await client.query('SELECT * FROM applications')
+        const data = await client.query('SELECT * FROM applications') 
         if (data) {
             res.status(200).send(data.rows)
         }
     } catch (err) {
-        console.log(err)
+        console.error(err)
         res.status(500).send('Internal Server Error');
     }
 })
@@ -88,7 +88,6 @@ const applicationValidation = [
 ];
 
 // test route to store new application
-// TODO: PREVENT SQL INJECTION, make sure that characters are not more than defined in the db definition
 app.post('/apply', applicationValidation, async (req, res) => {
     // TODO: abbr -> get first part
 
@@ -109,18 +108,19 @@ app.post('/apply', applicationValidation, async (req, res) => {
             [name, birthdate, phonenumber, address, abbr, course, seminargroup, position]);
         res.status(200).send('Successfully added application!');
     } catch (err) {
-        console.log(err)
+        console.error(err);
         res.status(500).send('Internal Server Error');
     }
-})
+});
 
-// test route to delete everything from the 'applications' table
-app.delete('/delete', async (req, res) => {
+app.delete('/delete/application/:id', async (req, res) => {
+    const { id } = req.params;
+
     try {
-        await client.query('DELETE FROM applications')
-        res.status(200).send('Successfully deleted everything from table!');
+        const response = await client.query('DELETE FROM applications WHERE id = $1', [id]); 
+        res.status(200).send('User deleted successfully.');
     } catch (err) {
-        console.log(err)
+        console.error('Error deleting application: ', err);
         res.status(500).send('Internal Server Error');
     }
 })
@@ -128,26 +128,4 @@ app.delete('/delete', async (req, res) => {
 // starts express server and waits for incoming requests on the specified port
 app.listen(port, () => console.log(
     `Server has started on port: ${port}`
-))
-
-// Validation Array
-var loginValidate = [
-  // Check Username
-  check('username', 'Username Must Be an Email Address').isEmail()
-  .trim().escape().normalizeEmail(),
-  // Check Password
-  check('password').isLength({ min: 8 }).withMessage('Password Must Be at Least 8 Characters').matches('[0-9]').withMessage('Password Must Contain a Number').matches('[A-Z]').withMessage('Password Must Contain an Uppercase Letter').trim().escape()];
-
-
-
-app.post('/login', loginValidate, (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-  	return res.status(422).json({ errors: errors.array() });
-  }
-  else {
-  // Insert Login Code Here
-  let username = req.body.username;
-  let password = req.body.password;
-  res.send(`Username: ${username} Password: ${password}`);  }
-});
+));

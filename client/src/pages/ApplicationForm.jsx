@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import { Link} from 'react-router-dom'
+import React, { useState } from 'react'
 import { z } from 'zod'
 import axios from 'axios'
 import { Form, Button } from 'react-bootstrap'
@@ -81,7 +80,6 @@ function ApplicationForm() {
         const validation = applicationSchema.safeParse(formData);
         if(!validation.success) {
             const occuredErrors = validation.error.errors;
-            console.log(occuredErrors);
 
             let errorId;
             occuredErrors.forEach(function(error) {

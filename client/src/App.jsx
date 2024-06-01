@@ -13,7 +13,7 @@ import Footer from './pages/Footer'
 import LandingPage from './pages/LandingPage'
 import ApplicationForm from './pages/ApplicationForm'
 import IntranetOverview from './pages/IntranetOverview'
-import Applications from './pages/Applications'
+import IntranetApplications from './pages/IntranetApplications'
 
 // Helper
 import BackgroundChanger from './helper/BackgroundChanger'
@@ -36,7 +36,7 @@ function App() {
                 <Route path="/" element={<LandingPage />}></Route>
                 <Route path="/application" element={<ApplicationForm />}></Route>
                 <Route path="/intranet" element={<IntranetOverview />}></Route>
-                <Route path="/intranet/applications" element={<Applications />}></Route>
+                <Route path="/intranet/applications" element={<IntranetApplications />}></Route>
               </Routes>
               {/* Fixed Footer */}
               <Footer />
