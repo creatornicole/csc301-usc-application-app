@@ -20,9 +20,9 @@ function ApplicationForm() {
     });
 
     const [successMsg, setSuccessMsg] = useState('');
+    const [errMsg, setErrMsg] = useState(''); // display server-side validation error
 
     // Set validation schema
-    // TODO: add max to validate with db setting or do this in server?
     const applicationSchema = z.object({
         name: z.string().trim()
             .min(1, { message: 'Name is required.'}),
@@ -65,38 +65,8 @@ function ApplicationForm() {
 
             let errorId;
             occuredErrors.forEach(function(error) {
-                switch(error.path[0]) {
-                    case 'name':
-                        errorId = 'inputName';
-                        break;
-                    case 'birthdate':
-                        errorId = 'inputBirthdate';
-                        break;
-                    case 'phonenumber':
-                        errorId = 'inputPhonenumber';
-                        break;
-                    case 'address':
-                        errorId = 'inputAddress';
-                        break;
-                    case 'abbr':
-                        errorId = 'inputAbbr';
-                        break;
-                    case 'course':
-                        errorId = 'inputCourse';
-                        break;
-                    case 'seminargroup':
-                        errorId = 'inputSeminargroup';
-                        break;
-                    case 'position':
-                        errorId = 'inputPosition';
-                        break;
-                }
-                if(errorId && !document.querySelector(`#${errorId} .error`).innerHTML) {
-                    document.querySelector(`#${errorId} .error`).innerHTML = `
-                        <i class="fa-solid fa-xmark"></i> ${error.message}
-                    `;
-                    errorId = '';
-                }
+                errorId = getErrorPath(error.path[0]);
+                displayErrMsg(errorId, error.message);
             })
             return false;
         }
@@ -112,7 +82,7 @@ function ApplicationForm() {
         });
         // perform input validation before sending data to server
         if(handleValidation()) {
-            // send data to server if all input is valid
+            // send data to server if all input is valid (passed the client-side validation)
             try {
                 const response = await axios.post(`${import.meta.env.VITE_SERVER_API}/apply`, formData);
                 console.log('Form data submitted successfully:', response.data);
@@ -120,7 +90,17 @@ function ApplicationForm() {
                 resetForm();
                 setSuccessMsg('<i class="fa-solid fa-check"></i> Application successfully submitted');
             } catch (error) {
-                console.log('Error submitting form data:', error);
+                if (error.response && error.response.status === 422) {
+                    let validationErr = error.response.data.errors;
+                    // display server-side validation errors in the form
+                    let errorId;
+                    validationErr.forEach(error => {
+                        errorId = getErrorPath(error.path);
+                        displayErrMsg(errorId, error.msg);
+                    });
+                } else {
+                    setErrMsg(`<i class="fa-solid fa-xmark"></i> Error submitting form data, please contact us.`);
+                }
             }
         }
     }
@@ -137,7 +117,48 @@ function ApplicationForm() {
             seminargroup: "",
             position: positionPlaceholder
         });
-    } 
+    }
+
+    // get path to determine where to display occured error
+    const getErrorPath = (errPath) => {
+        let errorId = '';
+        switch(errPath) {
+            case 'name':
+                errorId = 'inputName';
+                break;
+            case 'birthdate':
+                errorId = 'inputBirthdate';
+                break;
+            case 'phonenumber':
+                errorId = 'inputPhonenumber';
+                break;
+            case 'address':
+                errorId = 'inputAddress';
+                break;
+            case 'abbr':
+                errorId = 'inputAbbr';
+                break;
+            case 'course':
+                errorId = 'inputCourse';
+                break;
+            case 'seminargroup':
+                errorId = 'inputSeminargroup';
+                break;
+            case 'position':
+                errorId = 'inputPosition';
+                break;
+        }
+        return errorId;
+    }
+
+    //
+    const displayErrMsg = (errPath, errMsg) => {
+        if(errPath && !document.querySelector(`#${errPath} .error`).innerHTML) {
+            document.querySelector(`#${errPath} .error`).innerHTML = `
+                <i class="fa-solid fa-xmark"></i> ${errMsg}
+            `;
+        }
+    }
 
     // content of component: display form
     return (
@@ -209,10 +230,13 @@ function ApplicationForm() {
                     </Form.Select>
                     <Form.Text className="error"></Form.Text>
                 </Form.Group>
+
+                <p></p>
                 
                 <div className="submit-section">
                     <Button type="submit" variant='primary'>Submit</Button>
                     {successMsg && <p className="success" dangerouslySetInnerHTML={{ __html: successMsg }}></p>}
+                    {errMsg && <p className="error" dangerouslySetInnerHTML={{ __html: errMsg }}></p>}
                 </div>
             </Form>
         </div>

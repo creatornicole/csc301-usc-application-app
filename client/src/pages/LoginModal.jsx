@@ -25,13 +25,15 @@ function LoginModal({ show, handleClose }) {
         } else if (pwd !== import.meta.env.VITE_ADMIN_PWD) {
             setErrMsg('Wrong Password');
         } else {
+            // empty inputs of login form
+            setUsername('');
+            setPwd('');
+            // close login modal
+            handleClose();
             // credential correct
             // navigate to /intranet
             navigate('/intranet');
         }
-        // empty inputs of login form
-        setUsername('');
-        setPwd('');
     };
 
     return (
