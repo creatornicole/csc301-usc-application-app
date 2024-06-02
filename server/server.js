@@ -6,6 +6,7 @@ const cors = require('cors');
 // validationResult is a function of the req and is used to return an obj containing all validation errors
 const { check, validationResult } = require('express-validator'); // to validate and sanitize data
 const { client, createTable, getApplications, deleteUser, createApplication } = require('./db.js'); // database file
+const { parse } = require('dotenv');
 const port = process.env.PORT; // define/find PORT inside .env
 
 const app = express()
@@ -28,7 +29,25 @@ const applicationValidation = [
         .escape(),
     check('birthdate')
         .trim()
-        //.isISO8601().withMessage('Invalid date format, should be YYYY-MM-DD')
+        .custom(value => {
+            const regex = /^\d{2}\/\d{2}\/\d{4}$/;
+            if (!regex.test(value)) {
+                throw new Error('Invalid date format, should be DD/MM/YYYY')
+            }
+            // validate date logic
+            const [day, month, year] = value.split('/').map(num => parseInt(num, 10));
+            const date = new Date(year, month - 1, day);
+            if (date.getFullYear() !== year 
+                    || date.getMonth() !== month - 1
+                    || date.getDate() !== day) {
+                throw new Error('Invalid date');
+            }
+            const today = new Date();
+            if (date > today) {
+                throw new Error('Birthdate cannot be in the future');
+            }
+            return true
+        })
         .escape(),
     check('phonenumber')
         .trim()
