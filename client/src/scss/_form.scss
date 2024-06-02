@@ -1,13 +1,11 @@
 @use 'variables'; // contains variables for the web page
 
-form {
+// styles for application form and login form
+
+#applicationForm {
     text-align: left;
     width: 40%;
     margin: 4rem auto 0 auto;
-
-    .form-group {
-        margin-bottom: 28px;
-    }
 
     .error {
         color: variables.$error-red;
@@ -24,4 +22,16 @@ form {
     .submit-section {
         text-align: center;
     }
+}
+
+#loginForm {
+    padding: 40px 8rem 12px 8rem;
+
+    input::placeholder {
+        opacity: .4;
+      }
+}
+
+.form-group {
+    margin-bottom: 28px;
 }
