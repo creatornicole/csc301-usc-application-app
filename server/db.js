@@ -51,7 +51,7 @@ const getApplications = (request, response) => {
 }
 
 // delete application with id
-const deleteUser = (request, response) => {
+const deleteApplication = (request, response) => {
     const id = parseInt(request.params.id)
     client.query('DELETE FROM applications WHERE id = $1', [id], (error) => {
         if (error) {
@@ -96,6 +96,6 @@ module.exports = {
     client,
     createTable,
     getApplications,
-    deleteUser,
+    deleteApplication,
     createApplication
 };
