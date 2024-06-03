@@ -1,7 +1,14 @@
 import { Link } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 
+/*
+
+Start Page of Web Page
+
+*/
+
 function LandingPage() {
+    // content of component: start page of web page
     return (
         <header>
             <img 

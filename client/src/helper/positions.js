@@ -1,4 +1,4 @@
-// Set possible positions to choose from
+// contains possible positions to choose from
 export const possiblePositions = {
     battery: 'Battery', // DE: Akku
     pcbs: 'Circuit Boards', // DE: Platinen

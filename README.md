@@ -14,6 +14,7 @@ The project is divided into two main folders, that represent the client and serv
 |                    | src/helper | BackgroundChanger.jsx  | changes colors depending on the url                                                                  |
 |                    | src/helper | converter.js           | contains function to convert data to correct/needed format                                           |
 |                    | src/helper | positions.js           | contains dictionary of possible team positions to choose from                                        |
+|                    | src/pages  |                        | contains react components                                                                            |
 |                    | src/pages  | ApplicationForm.jsx    | displays application form, handles input field validation, error messages and post request to server |
 |                    | src/pages  | Footer.jsx             | contains web page footer with logo and web links                                                     |
 |                    | src/pages  | IntranetApplication.jsx| displays received applications and handles delete of applications                                    |
@@ -22,6 +23,7 @@ The project is divided into two main folders, that represent the client and serv
 |                    | src/pages  | LandingPage.jsx        | entry point of web page (= start page), contains button to get to application form                   |
 |                    | src/pages  | LoginModal.jsx         | modal with form to log into web page internal view                                                   |
 |                    | src/pages  | Navigation.jsx         | contains web page navigation bar                                                                     |
+|                    | src/scss   |                        | contains stylesheets                                                                                 |
 |                    | src/scss   | _footer.scss           | contains footer styles                                                                               |
 |                    | src/scss   | _form.scss             | contains form styles (general form styles, application form styles, login form styles)               |
 |                    | src/scss   | _intranet.scss         | contains styles for internal web page view                                                           |

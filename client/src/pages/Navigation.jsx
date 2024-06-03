@@ -1,14 +1,21 @@
-import { Link} from 'react-router-dom'
 import { Navbar, Nav, Container } from 'react-bootstrap'
 import LoginModal from './LoginModal';
 import { useState } from 'react';
 
+/*
+
+Navigation with Logo and Login Link
+
+*/
+
 function Navigation() {
     const [show, setShow] = useState(false);
 
+    // handles displaying of login modal
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
 
+    // content of component: page navigation bar
     return (
         <div>
             <Navbar className="dark-bg-color">
@@ -33,11 +40,3 @@ function Navigation() {
 }
 
 export default Navigation
-
-{/*
-
-<Nav.Link as={Link} className="link" to="/intranet">
-    Login {/* TODO: either Login/Logout 
-</Nav.Link>
-
-*/}

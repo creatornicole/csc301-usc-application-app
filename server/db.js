@@ -1,6 +1,7 @@
+// postgreSQL database with CRUD operations to store applications
 const pg = require('pg'); // PostgreSQL Database
 require('dotenv').config(); // imports and configures dotenv to access .env file
-const { check, validationResult } = require('express-validator'); // to validate and sanitize data
+const { validationResult } = require('express-validator'); // to validate and sanitize data
 const { convertDateFormat, convertUniAbbr } = require('./converter.js'); // to ajdust data
 
 
@@ -52,7 +53,7 @@ const getApplications = (request, response) => {
 // delete application with id
 const deleteUser = (request, response) => {
     const id = parseInt(request.params.id)
-    client.query('DELETE FROM applications WHERE id = $1', [id], (error, results) => {
+    client.query('DELETE FROM applications WHERE id = $1', [id], (error) => {
         if (error) {
             console.error(error);
             response.status(500).json({ error: 'Internal Server Error' });
@@ -98,6 +99,3 @@ module.exports = {
     deleteUser,
     createApplication
 };
-
-// It's a good practice to close the client when you're done
-//client.end();

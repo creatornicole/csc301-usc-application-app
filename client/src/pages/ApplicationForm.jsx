@@ -5,6 +5,15 @@ import { Form, Button } from 'react-bootstrap'
 // get possible team positions
 import { possiblePositions } from '../helper/positions.js';
 
+/*
+
+Contains form to apply for membership:
+
+Handles input field validation on client-side
+Displays error messages
+Handles Submit/ Post Request to server
+
+*/
 function ApplicationForm() {
     // State Variables
     const positionPlaceholder = "Change to your desired positon...";
@@ -18,9 +27,8 @@ function ApplicationForm() {
         seminargroup: "",
         position: positionPlaceholder
     });
-
     const [successMsg, setSuccessMsg] = useState('');
-    const [errMsg, setErrMsg] = useState(''); // display server-side validation error
+    const [errMsg, setErrMsg] = useState(''); // display server-side error
 
     // Set validation schema
     const applicationSchema = z.object({
@@ -28,7 +36,7 @@ function ApplicationForm() {
             .min(1, { message: 'Name is required.'}),
         birthdate: z.string().trim()
             .min(1, { message: 'Date of Birth is required.'})
-            .regex(/^\d{2}\/\d{2}\/\d{4}$/, { message: 'Birthdate must be in the format DD/MM/YYYY'}), /////^\d{2}\.\d{2}\.\d{4}$/
+            .regex(/^\d{2}\/\d{2}\/\d{4}$/, { message: 'Birthdate must be in the format DD/MM/YYYY'}),
         phonenumber: z.string().trim()
             .min(1, { message: 'Phone Number is required.'}),
         address: z.string().trim()
@@ -82,7 +90,7 @@ function ApplicationForm() {
         });
         // perform input validation before sending data to server
         if(handleValidation()) {
-            // send data to server if all input is valid (passed the client-side validation)
+            // send data to server if all input is validated on client-side
             try {
                 const response = await axios.post(`${import.meta.env.VITE_SERVER_API}/apply`, formData);
                 console.log('Form data submitted successfully:', response.data);
@@ -151,7 +159,7 @@ function ApplicationForm() {
         return errorId;
     }
 
-    //
+    // display error message in specified element
     const displayErrMsg = (errPath, errMsg) => {
         if(errPath && !document.querySelector(`#${errPath} .error`).innerHTML) {
             document.querySelector(`#${errPath} .error`).innerHTML = `
@@ -230,8 +238,6 @@ function ApplicationForm() {
                     </Form.Select>
                     <Form.Text className="error"></Form.Text>
                 </Form.Group>
-
-                <p></p>
                 
                 <div className="submit-section">
                     <Button type="submit" variant='primary'>Submit</Button>
@@ -240,7 +246,6 @@ function ApplicationForm() {
                 </div>
             </Form>
         </div>
-        // maybe useNavigate to handle form submission
     );
 }
 

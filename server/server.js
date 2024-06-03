@@ -76,9 +76,10 @@ const applicationValidation = [
         .escape(),
 ];
 
-// test route to store new application
+// store new application
 app.post('/apply', applicationValidation, createApplication);
 
+// delete application with specified id
 app.delete('/delete/application/:id', deleteUser)
 
 // starts express server and waits for incoming requests on the specified port

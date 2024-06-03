@@ -1,6 +1,3 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 //import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
@@ -18,11 +15,9 @@ import IntranetApplications from './pages/IntranetApplications'
 // Helper
 import BackgroundChanger from './helper/BackgroundChanger'
 
-
-
+// Renders Components based on URL using React Router
+// and changes background color based on URL by wrapping BackgroundChanger around
 function App() {
-  //const [count, setCount] = useState(0)
-
   return (
     <>
       <div className='App'>

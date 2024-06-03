@@ -1,13 +1,10 @@
 # Test Requests for TMM Application Web Application
 # database applications created if not exists when server is started
 
-# TODO: is that possible to do with Postman?
-
 ### Get Data from Table 'applications'
 GET http://localhost:3003/applications
 
-###
-
+### Delete Application with specified id after last slash
 DELETE http://localhost:3003/delete/application/11
 
 ### Post Data to Table 'applications'

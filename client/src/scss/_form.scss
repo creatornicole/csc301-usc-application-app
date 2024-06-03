@@ -2,6 +2,7 @@
 
 // styles for application form and login form
 
+// application form specific styles
 #applicationForm {
     text-align: left;
     width: 40%;
@@ -12,7 +13,7 @@
         font-weight: 500;
         font-size: 15px;
     }
-
+    
     .success {
         color: variables.$success-green;
         font-weight: 500;
@@ -24,14 +25,22 @@
     }
 }
 
+// login form specific styles
 #loginForm {
     padding: 40px 8rem 12px 8rem;
 
     input::placeholder {
         opacity: .4;
-      }
+    }
 }
 
+// general form styles
 .form-group {
     margin-bottom: 28px;
+}
+
+.error {
+    color: variables.$error-red;
+    font-weight: 500;
+    font-size: 15px;
 }

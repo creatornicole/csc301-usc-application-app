@@ -1,8 +1,8 @@
 @use 'variables'; // contains variables for the web page
 
+// styles that are specific for the internal web page view (= intranet)
 .intranet {
     min-height: variables.$min-height;
-    //padding-top: variables.$main-content-padding-top;
 
     nav {
         background-color: variables.$mid-grey;

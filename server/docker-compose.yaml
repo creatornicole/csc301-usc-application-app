@@ -1,4 +1,5 @@
-version: "3"
+# builds two docker containers
+version: "3.8"
 services:
   db: 
     image: postgres

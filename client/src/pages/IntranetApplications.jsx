@@ -5,10 +5,17 @@ import axios from 'axios'
 import { useEffect, useState } from 'react';
 // get possible team positions
 import { possiblePositions } from '../helper/positions.js';
+import { convertDateFormat } from '../helper/converter.js';
 
+/*
+
+Displays received applications in table
+
+*/
 function IntranetApplications() {
     const [applications, setApplications] = useState([]);
 
+    // get applications from server/database
     useEffect(() => {
         const fetchApplications = async() => {
             try {
@@ -21,6 +28,7 @@ function IntranetApplications() {
         fetchApplications();
     }, []);
 
+    // delete application on button click and update table accordingly
     const handleDelete = async (id) => {
         try {
             await axios.delete(`${import.meta.env.VITE_SERVER_API}/delete/application/${id}`);
@@ -31,15 +39,7 @@ function IntranetApplications() {
         }
     }
 
-    // converts to DD/MM/YYYY from date format ISO8601
-    const convertDateFormat = (date) => {
-        const dateObject = new Date(date);
-        const day = dateObject.getUTCDate().toString().padStart(2, '0');
-        const month = (dateObject.getUTCMonth() + 1).toString().padStart(2, '0');
-        const year = dateObject.getUTCFullYear();
-        return `${day}/${month}/${year}`;
-    }
-
+    // content of component: display received applications
     return (
         <div className="intranet">
             <IntranetNavbar />

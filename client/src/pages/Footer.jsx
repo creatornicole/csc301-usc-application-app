@@ -1,8 +1,13 @@
+/*
+
+Footer with Logo and Web Links
+
+*/
 function Footer() {
-    // navigate to social media web pages
+    
+    // navigate to social media web pages depending on which button was clicked
     const handleButtonClick = (event) => {
         const btnClass = event.target.className;
-
         let url;
         switch (btnClass) {
             case 'fb':
@@ -24,6 +29,7 @@ function Footer() {
         window.location.href = url;
     }
 
+    // content of component: page footer
     return (
         <footer>
             <a href="/">

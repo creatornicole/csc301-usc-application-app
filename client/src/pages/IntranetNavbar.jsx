@@ -1,7 +1,13 @@
 import { Link} from 'react-router-dom'
 import { Navbar, Nav, Container } from 'react-bootstrap'
 
+/*
+
+Additional navbar below the general navbar
+
+*/
 function IntranetNavbar() {
+    // content of component: additional navbar for internal web page view
     return (
         <Navbar>
             <Container>

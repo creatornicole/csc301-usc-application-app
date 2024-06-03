@@ -1,4 +1,6 @@
-FROM node:16
+# Docker image for backend application
+
+FROM node:20
 
 # create app directory
 WORKDIR /usr/src/app

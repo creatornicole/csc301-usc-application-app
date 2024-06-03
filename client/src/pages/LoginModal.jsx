@@ -2,8 +2,14 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 
-function LoginModal({ show, handleClose }) {
+/*
 
+Entry Point to login into internal web page view
+
+*/
+
+function LoginModal({ show, handleClose }) {
+    // state variables
     const [username, setUsername] = useState('');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
@@ -15,6 +21,7 @@ function LoginModal({ show, handleClose }) {
         setErrMsg('');
     }, [username, pwd])
 
+    // compare entered credentials with .env entries
     const handleLogin = async (e) => {
         // handles login credentials via .env
         if (username !== import.meta.env.VITE_ADMIN_LOGIN && 
@@ -25,25 +32,33 @@ function LoginModal({ show, handleClose }) {
         } else if (pwd !== import.meta.env.VITE_ADMIN_PWD) {
             setErrMsg('Wrong Password');
         } else {
-            // empty inputs of login form
-            setUsername('');
-            setPwd('');
+            emptyInputs();
             // close login modal
             handleClose();
-            // credential correct
-            // navigate to /intranet
+            // credentials correct, navigate to /intranet
             navigate('/intranet');
         }
     };
 
+    // empty input and close when modal is hidden or closed
+    const handleCloseOfModal = () => {
+        emptyInputs()
+        handleClose();  
+    };
+
+    // empty inputs of login form
+    const emptyInputs = () => {
+        setUsername('');
+        setPwd('');
+    }
+
+    // content of component: modal with form to log into web page
     return (
-        <Modal size="lg" show={show} onHide={handleClose} className="light-bg-color">
+        <Modal size="lg" show={show} onHide={handleCloseOfModal} className="light-bg-color">
             <Modal.Header closeButton>
                 <Modal.Title>Login</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {/* display error message */}
-                <p>{errMsg}</p>
                 {/* login form is body of modal */}
                 <Form id="loginForm">
                     <Form.Group className="form-group">
@@ -72,9 +87,11 @@ function LoginModal({ show, handleClose }) {
                         />
                     </Form.Group>
                 </Form>
+                {/* display error message */}
+                {errMsg && <p className="error" dangerouslySetInnerHTML={{ __html: `<i class="fa-solid fa-xmark"></i> ${errMsg}` }}></p>}
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
+                <Button variant="secondary" onClick={handleCloseOfModal}>
                     Close
                 </Button>
                 <Button variant="primary" onClick={handleLogin}>
