@@ -1,5 +1,21 @@
 # csc301-assignment3
 
+# About the App
+This web app is intended to simplify the application process for the Formula Student Team "Technikum Mittweida Motorsprot" at the University of Applied Sciences Mittweida. For this purpose, a start page in the style of the newly created website is implemented, which redirects to an application form. From this page, the admin login data can be used to access the applications received.
+
+# Use Web Application Locally
+To use the web application locally, you need to start both client and server.
+To start the client make sure that you are inside the client folder and type `npm run dev` inside your command line, which starts the application on localhost:[port].
+To start the server make sure that you
+
+# Implementation
+- **React** has been the [most popular open-source JavaScript library](https://2022.stateofjs.com/en-US/libraries/front-end-frameworks/) that helps build the front end of web applications more easily and efficient. In addition to that it allows to [utilize components](https://medium.com/@reactmasters.in/advantages-and-disadvantages-of-react-js-e6c80b25763b) within the project, which creates a better overview during development. Because of this and because we dealt with React the most during the course CSC 301 at the University of the Sunshine Coast, this project is based on the React front-end library.
+- **Vite** 
+- **Bootstrap**
+- **Node.js and Express.js**
+- **PostgreSQL**
+
+
 # Project Structure
 The project is divided into two main folders, that represent the client and server. The client folder contains the react project, while the server folder contains the database and express server for database interaction. The most important files are described in the table below.
 
