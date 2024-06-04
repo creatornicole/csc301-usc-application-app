@@ -117,9 +117,9 @@ The login ensures that only those with the correct login data can access the rec
 The design approaches the styleguide of the team, which defines `Bebas Neue` and `Avenir Next` as the font familys to use. As the latter is subject to a fee, `Montserrat` was used as a similar font for this project. The colors used are also based on the team's style guide. The design prototypes of the web application are shown below. The final implementation differs slightly from these. The main reason for this that the final implementation facilitates the responsiveness of the web app.
 
 ![Start Page](design-01-landing_page.png)
-![Application Form](design-02-application_form)
-![Logged In Overview](design-03-logged_in)
-![Application Overview](design-04-application_overview)
+![Application Form](design-02-application_form.png)
+![Logged In Overview](design-03-logged_in.png)
+![Application Overview](design-04-application_overview.png)
 
 
 
