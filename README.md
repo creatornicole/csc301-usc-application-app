@@ -37,6 +37,9 @@ The values for the environment variables can be different than the above. Howeve
 Once the prerequisites are installed, the web application can be used by starting the client and server. To start the client make sure that you are inside the client folder and type `npm run dev` inside your command line. This starts the application on localhost:[port].
 To start the server as well as database make sure that you start the docker daemon on your computer. This allows to start the dockerized container by running the command `docker-compose up`. In case that you want to force a rebuild of the images before starting the container, run the command `docker-compose up --build`. That is necessary when changes have been made to the Dockerfile or source code that affects the image.
 
+# Implementation
+![Tech Overview](tech-overview.png)
+
 # Project Structure
 The project is divided into two main folders, that represent the client and server. The client folder contains the react project, while the server folder contains the database and express server for database interaction. The most important files are described in the table below.
 
@@ -76,19 +79,10 @@ The project is divided into two main folders, that represent the client and serv
 |                    | /          | server.js              | backend nodejs express server that interacts with react app and postgreSQL db, includes server side validation |
 |                    | /          | test.rest              | includes test requests                                                                                         |
 
-# Implementation
-![Tech Overview](tech-overview.png)
-
-- **React** has been the [most popular open-source JavaScript library](https://2022.stateofjs.com/en-US/libraries/front-end-frameworks/) that helps build the front end of web applications more easily and efficient. In addition to that it allows to [utilize components](https://medium.com/@reactmasters.in/advantages-and-disadvantages-of-react-js-e6c80b25763b) within the project, which creates a better overview during development. Because of this and because we dealt with React the most during the course CSC 301 at the University of the Sunshine Coast, this project is based on the React front-end library.
-- **Vite** [is a JavaScript build tool that simplifies the way we build and develop front-end web applications, by doing two main things. Firstly it serves the projects code locally during development. Secondly it bundles JavaScript, CSS and other assets together for production. In comparison to Parcel, it simplifies and speeds-up the process, which makes it the choice for this project.](https://www.youtube.com/watch?v=KCrXgy8qtjM)
-- **Bootstrap**
-- **Node.js and Express.js** provides the backend side for the web application. 
-- **PostgreSQL**
-
-## Backend
+# Backend
 The backend is completely dockerized, which means that both the database and the express server sits in their own docker container. This setup allows to isolate both environments, making it easier to manage, replicate, and deploy across different environments. Both containers are started using the command `docker-compose up`. With this command the docker containers are started based on the configurations defined in the `docker-compose.yaml` file. It uses the postgres docker image and the nodejs image of our express server which is defined in the Dockerfile of the project.
 
-### Database
+## Database
 PostgreSQL is used as the database management system for the project. The initialization of the database as well as the CRUD operations are stored inside the `db.js` file. Once the server is started a database table `applications` with the columns id, name, birthdate, phonenumber, address, abbr, course, seminargroup and position is created. The database credentials of the PostgreSQL client are stored inside the `.env` file in the root of the project. The `.env` file is used to enable an effective and secure way to manage the environment variables. The [`dotenv` library](https://www.npmjs.com/package/dotenv) is used to load these. The `.env` file needs to be created the first time the project is started. The file has the following structure, that needs to be filled out. Make sure to define the `DB_PORT` as 5432 and feel free to take over the other values provided as example.
 ```
 DB_HOST=db
@@ -109,8 +103,25 @@ The following CRUD operations are implemented:
 
 Consequently, there is no update operation implemented. This represents a further development step for the future.
 
-### Server
+## Server
 The backend server is implemented using Express.js. This backend server provides endpoints to interact between the database and react app. It creates the table in case the table does not exist yet, when starting the server and defines three endpoints that link to the database operations create, read and delete that are defined inside the `db.js` file. Furthermore, the server performs a second validation of the data provided by the user via the application form in the react app. It uses the `express-validator` to perform this server-side validation. This validation is primarily based on the database definition. However, that is a little bit different for the passed birthdate. While the database needs a form of YYYY-MM-DD, the server validates to true if the birthdate corresponds to DD/MM/YYYY. That is because, the birthdate will be put in the right format inside the create operation of the database.
 To reach the server, it listens to the port that is defined inside the `.env` file of the backend.
+
+# Frontend
+The front end is build around the application form, which represents the main part of the project. The form enables the user to send data via the backend server to the PostgreSQL database to store their application and show it in the logged in version of the web page. To provide enough security and ensure that the input of the user complies with the expected format, contraints, and business rules before it is submitted the npm package Zod is used to validate the input fields and display messages according to the occured errors. 
+
+## Login
+The login ensures that only those with the correct login data can access the received applications. However, it is not implemented for use on production, as it only compares the user input with the environment variables stored in the `.env` file of the client. This only provides one login access. Furthermore, it raises a security risk, as it is possible to bypass the login by accessing the internal website view by entering the corresponding URL.
+
+## Design
+The design approaches the styleguide of the team, which defines `Bebas Neue` and `Avenir Next` as the font familys to use. As the latter is subject to a fee, `Montserrat` was used as a similar font for this project. The colors used are also based on the team's style guide. The design prototypes of the web application are shown below. The final implementation differs slightly from these. The main reason for this that the final implementation facilitates the responsiveness of the web app.
+
+![Start Page](design-01-landing_page.png)
+![Application Form](design-02-application_form)
+![Logged In Overview](design-03-logged_in)
+![Application Overview](design-04-application_overview)
+
+
+
 
      
