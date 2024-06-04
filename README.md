@@ -6,7 +6,7 @@ This web app is intended to simplify the application process for the Formula Stu
 # Use Web Application Locally
 To use the web application locally, you need to start both client and server.
 
-To do this, first, you will need to have Node.js, a [JavaScript runtime environment that is used to develop server-side applications](https://ninetailed.io/blog/best-javascript-frameworks/), as well as Docker installed. In addition to that the Node Package Manager (npm) and the Node Version Manager (nvm) is highly recommended to easily manage packages, dependencies and the current version of Node.js. The project uses Node.js v20.12.2, npm 10.5.0 and nvm 0.39.7. Check your current installed version with the following commands.
+To do this, first, you will need to have Node.js as well as Docker installed. In addition to that the Node Package Manager (npm) and the Node Version Manager (nvm) is highly recommended to easily manage packages, dependencies and the current version of Node.js. The project uses Node.js v20.12.2, npm 10.5.0 and nvm 0.39.7. Check your current installed version with the following commands.
 ```
     node -v
     npm -v 
@@ -77,6 +77,8 @@ The project is divided into two main folders, that represent the client and serv
 |                    | /          | test.rest              | includes test requests                                                                                         |
 
 # Implementation
+![Tech Overview](tech-overview.png)
+
 - **React** has been the [most popular open-source JavaScript library](https://2022.stateofjs.com/en-US/libraries/front-end-frameworks/) that helps build the front end of web applications more easily and efficient. In addition to that it allows to [utilize components](https://medium.com/@reactmasters.in/advantages-and-disadvantages-of-react-js-e6c80b25763b) within the project, which creates a better overview during development. Because of this and because we dealt with React the most during the course CSC 301 at the University of the Sunshine Coast, this project is based on the React front-end library.
 - **Vite** [is a JavaScript build tool that simplifies the way we build and develop front-end web applications, by doing two main things. Firstly it serves the projects code locally during development. Secondly it bundles JavaScript, CSS and other assets together for production. In comparison to Parcel, it simplifies and speeds-up the process, which makes it the choice for this project.](https://www.youtube.com/watch?v=KCrXgy8qtjM)
 - **Bootstrap**
