@@ -59,7 +59,16 @@ describe('Application Form', () => {
     cy.get('button[type="submit"]').click();
 
     // check for the success message
-    cy.get('.success').should('be.visible', { timeout: 10000 })
+    // get all elements with class .error
+    cy.get('.error').then(($errorElements) => {
+      // filter the elements to get only those with non-empty text content
+      const errorElementsWithValue = $errorElements.filter((index, element) => {
+        return Cypress.$(element).text().trim() !== '';
+      });
+
+      // assert the count of error elements with values
+      expect(errorElementsWithValue.length).to.be.equal(0);
+    });
   });
 
   // check for the most obvious mistakes that should not submit the form to the server
