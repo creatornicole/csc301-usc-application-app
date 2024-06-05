@@ -11,8 +11,22 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Install server dependencies
+        working-directory: server
+        run: npm install
+
+      - name: Start backend server
+        working-directory: server
+        run: docker-compose up --build
+
+      - name: Wait for server
+        run: sleep 10
+
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
           working-directory: client
           component: true
+
+      
