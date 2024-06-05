@@ -11,8 +11,27 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Specify the Node.js version you need
+
+      - name: Install dependencies
+        run: npm ci # Prefer 'npm ci' if you have a package-lock.json file
+
+      - name: Build application
+        run: npm run build
+
+      - name: Start application
+        run: npm start &
+        env:
+          CI: true
+
+      - name: Wait for application to start
+        run: sleep 20 # Adjust the sleep duration as necessary to wait for your app to start
+
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
-          build: npm run build
           start: npm start
