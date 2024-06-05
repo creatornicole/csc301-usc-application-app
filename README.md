@@ -122,7 +122,10 @@ The design approaches the styleguide of the team, which defines `Bebas Neue` and
 ![Application Overview](design-04-application_overview.png)
 
 # Output Validation
-An automated Component Test will run using [Cypress and Github](https://github.com/cypress-io/github-action/tree/master) Action on push and pull request actions to ensure that the application form accepts the correct data. Run the command `npx cypres open` to run the component test manually inside your client folder. 
+An automated Component Test will run using [Cypress and Github](https://github.com/cypress-io/github-action/tree/master) Action on push and pull request actions to ensure that the client-side validation works correctly. Run the command `npx cypres open` to run the component test manually inside your client folder. Make sure to change the `applicationForm.cy.jsx` file depending on where you perform the tests:
+- change to 0 errors occur in test 'should accept valid input data' when testing locally
+- change to 1 error occur in test 'should accept valid input data' when using Github Actions
+Or change the `main.yml` file to correctly start the server and connect to the database.
 
 # Deployment
 The web application has not been deployed because the application form for the Formula Student team should not be accessible on the internet until it is working correctly and is integrated.
