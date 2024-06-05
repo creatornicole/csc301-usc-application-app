@@ -241,7 +241,7 @@ function ApplicationForm() {
                 
                 <div className="submit-section">
                     <Button type="submit" variant='primary'>Submit</Button>
-                    {successMsg && <p className="success" dangerouslySetInnerHTML={{ __html: successMsg }}></p>}
+                    <p className="success" dangerouslySetInnerHTML={{ __html: successMsg }}></p>
                     {errMsg && <p className="error" dangerouslySetInnerHTML={{ __html: errMsg }}></p>}
                 </div>
             </Form>
