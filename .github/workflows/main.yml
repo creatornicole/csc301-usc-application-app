@@ -1,9 +1,6 @@
 name: Cypress Test (Application Form)
 
-on:
-  push:
-    paths:
-      - 'client/**'
+on: [push]
 
 jobs:
   cypress-run:
