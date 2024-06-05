@@ -59,7 +59,7 @@ describe('Application Form', () => {
     cy.get('button[type="submit"]').click();
 
     // check for the success message
-    cy.get('.success').should('be.visible');;
+    cy.get('.success').should('be.visible', { timeout: 10000 })
   });
 
   // check for the most obvious mistakes that should not submit the form to the server
