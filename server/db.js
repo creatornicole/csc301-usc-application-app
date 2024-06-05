@@ -4,7 +4,6 @@ require('dotenv').config(); // imports and configures dotenv to access .env file
 const { validationResult } = require('express-validator'); // to validate and sanitize data
 const { convertDateFormat, convertUniAbbr } = require('./converter.js'); // to ajdust data
 
-
 const { Client } = pg;
 
 const client = new Client({

@@ -8,31 +8,7 @@ on:
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
-    services:
-      express-server:
-        image: ngottcosmo/server-app:latest
-        ports:
-          - 3003:3003
-        env:
-          PORT: ${{ secrets.PORT }}
-      db:
-        image: ngottcosmo/postgres:latest
-        ports:
-          - 5432:5432
-        env:
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-  
     steps:
-      - name: Log into Docker Hub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-
-      - name: Wait for services to start
-        run: sleep 10
-
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -41,5 +17,3 @@ jobs:
         with:
           working-directory: client
           component: true
-
-      
