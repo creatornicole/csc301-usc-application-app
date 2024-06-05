@@ -27,7 +27,6 @@ function ApplicationForm() {
         seminargroup: "",
         position: positionPlaceholder
     });
-    const [successMsg, setSuccessMsg] = useState('');
     const [errMsg, setErrMsg] = useState(''); // display server-side error
 
     // Set validation schema
@@ -96,7 +95,7 @@ function ApplicationForm() {
                 console.log('Form data submitted successfully:', response.data);
                 // reset form and show message in case of successful submission
                 resetForm();
-                setSuccessMsg('<i class="fa-solid fa-check"></i> Application successfully submitted');
+                document.getElementsByClassName('success')[0].innerHTML = '<i class="fa-solid fa-check"></i> Application successfully submitted';
             } catch (error) {
                 if (error.response && error.response.status === 422) {
                     let validationErr = error.response.data.errors;
@@ -241,7 +240,7 @@ function ApplicationForm() {
                 
                 <div className="submit-section">
                     <Button type="submit" variant='primary'>Submit</Button>
-                    <p className="success" dangerouslySetInnerHTML={{ __html: successMsg }}></p>
+                    <p className="success"></p>
                     {errMsg && <p className="error" dangerouslySetInnerHTML={{ __html: errMsg }}></p>}
                 </div>
             </Form>
