@@ -121,6 +121,12 @@ The design approaches the styleguide of the team, which defines `Bebas Neue` and
 ![Logged In Overview](design-03-logged_in.png)
 ![Application Overview](design-04-application_overview.png)
 
+# Output Validation
+An automated Component Test will run using Cypress and Github Action on push and pull request actions to ensure that the application form accepts the correct data. Run the command `npx cypres open` to run the component test manually inside your client folder.
+
+# Deployment
+The web application has not been deployed because the application form for the Formula Student team should not be accessible on the internet until it is working correctly and is integrated.
+
 
 
 

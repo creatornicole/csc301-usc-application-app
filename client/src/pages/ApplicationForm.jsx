@@ -16,7 +16,7 @@ Handles Submit/ Post Request to server
 */
 function ApplicationForm() {
     // State Variables
-    const positionPlaceholder = "Change to your desired positon...";
+    const positionPlaceholder = "Change to your desired position...";
     const [formData, setFormData] = useState({
         name: "",
         birthdate: "",
