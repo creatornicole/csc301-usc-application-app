@@ -60,17 +60,15 @@ describe('Application Form', () => {
 
     // check for the success message
     // get all elements with class .error
-    cy.get('.error').then(($errorElements) => {
+    cy.get('.inputError').then(($errorElements) => {
       // filter the elements to get only those with non-empty text content
       const errorElementsWithValue = $errorElements.filter((index, element) => {
         return Cypress.$(element).text().trim() !== '';
       });
 
       // assert the count of error elements with values
-      // equals 1, when it is run with github actions
-      // this one error occurs because of the server error
-      // the server error occurs, because the server is not started, when the github action is run
-      expect(errorElementsWithValue.length).to.be.equal(1);
+      // equals 0 for client-side validation errors
+      expect(errorElementsWithValue.length).to.be.equal(0);
     });
   });
 
@@ -90,7 +88,7 @@ describe('Application Form', () => {
     cy.get('button[type="submit"]').click();
 
     // get all elements with class .error
-    cy.get('.error').then(($errorElements) => {
+    cy.get('.inputError ').then(($errorElements) => {
       // filter the elements to get only those with non-empty text content
       const errorElementsWithValue = $errorElements.filter((index, element) => {
         return Cypress.$(element).text().trim() !== '';

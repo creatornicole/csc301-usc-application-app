@@ -176,43 +176,43 @@ function ApplicationForm() {
                 <Form.Group id="inputName" className="form-group">
                     <Form.Label htmlFor="name">Name</Form.Label>
                     <Form.Control type="text" name="name" id="name" value={formData.name} onChange={handleInputChange} />
-                    <Form.Text className="error"></Form.Text>
+                    <Form.Text className="inputError error"></Form.Text>
                 </Form.Group>
 
                 <Form.Group id="inputBirthdate" className="form-group">
                     <Form.Label htmlFor="birthdate">Date of Birth (DD/MM/YYYY):</Form.Label>
                     <Form.Control type="text" name="birthdate" id="birthdate" value={formData.birthdate} onChange={handleInputChange} />
-                    <Form.Text className="error"></Form.Text>
+                    <Form.Text className="inputError error"></Form.Text>
                 </Form.Group>
 
                 <Form.Group id="inputPhonenumber" className="form-group">
                     <Form.Label htmlFor="phonenumber">Phone Number:</Form.Label>
                     <Form.Control type="text" name="phonenumber" id="phonenumber" value={formData.phonenumber} onChange={handleInputChange} />
-                    <Form.Text className="error"></Form.Text>
+                    <Form.Text className="inputError error"></Form.Text>
                 </Form.Group>
 
                 <Form.Group id="inputAddress" className="form-group">
                     <Form.Label htmlFor="address">Address During Studies:</Form.Label>
                     <Form.Control type="text" name="address" id="address" value={formData.address} onChange={handleInputChange} />
-                    <Form.Text className="error"></Form.Text>
+                    <Form.Text className="inputError error"></Form.Text>
                 </Form.Group>
 
                 <Form.Group id="inputAbbr" className="form-group"> 
                     <Form.Label htmlFor="abbr">University Mailing Address (vsurname@hs-mittweida.de):</Form.Label>
                     <Form.Control type="text" name="abbr" id="abbr" value={formData.abbr} onChange={handleInputChange} />
-                    <Form.Text className="error"></Form.Text>
+                    <Form.Text className="inputError error"></Form.Text>
                 </Form.Group>
 
                 <Form.Group id="inputCourse" className="form-group">
                     <Form.Label htmlFor="course">Course of Study:</Form.Label>
                     <Form.Control type="text" name="course" id="course" value={formData.course} onChange={handleInputChange} />
-                    <Form.Text className="error"></Form.Text>
+                    <Form.Text className="inputError error"></Form.Text>
                 </Form.Group>
 
                 <Form.Group id="inputSeminargroup" className="form-group">
                     <Form.Label htmlFor="seminargroup">Seminar Group (IF21wS1-B):</Form.Label>
                     <Form.Control type="text" name="seminargroup" id="seminargroup" value={formData.seminargroup} onChange={handleInputChange} />
-                    <Form.Text className="error"></Form.Text>
+                    <Form.Text className="inputError error"></Form.Text>
                 </Form.Group>
 
                 <Form.Group id="inputPosition" className="form-group">
@@ -236,7 +236,7 @@ function ApplicationForm() {
                         <option value="organisation">{possiblePositions['organisation']}</option>
                         <option value="sponsoring">{possiblePositions['sponsoring']}</option>
                     </Form.Select>
-                    <Form.Text className="error"></Form.Text>
+                    <Form.Text className="inputError error"></Form.Text>
                 </Form.Group>
                 
                 <div className="submit-section">
