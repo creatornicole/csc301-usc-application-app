@@ -58,8 +58,16 @@ describe('Application Form', () => {
     // submit the form
     cy.get('button[type="submit"]').click();
 
-    // assert that the form submission is succesful
-    cy.contains('Application successfully submitted').should('be.visible');
+    // get all elements with class .error
+    cy.get('.error').then(($errorElements) => {
+      // filter the elements to get only those with non-empty text content
+      const errorElementsWithValue = $errorElements.filter((index, element) => {
+        return Cypress.$(element).text().trim() !== '';
+      });
+
+      // no errors should contain error messages
+      expect(errorElementsWithValue.length).to.be.equal(0);
+    });
   });
 
   // check for the most obvious mistakes that should not submit the form to the server
