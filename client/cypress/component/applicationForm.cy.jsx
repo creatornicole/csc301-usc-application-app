@@ -1,5 +1,7 @@
 import React from 'react';
 import ApplicationForm from '../../src/pages/ApplicationForm';
+import { MemoryRouter } from 'react-router-dom';
+import { mount } from 'cypress/react';
 
 /*
 
@@ -9,9 +11,38 @@ as well as displays the right amount of errors when the invalid
 input data is entered.
 
 */
+
+Cypress.Commands.add('mount', (component, options = {}) => {
+  const { routerProps = { initialEntries: ['/'] }, ...mountOptions } = options
+
+  const wrapped = <MemoryRouter {...routerProps}>{component}</MemoryRouter>
+
+  return mount(wrapped, mountOptions)
+})
+
 describe('Application Form', () => {
+  const initialState = {
+    applicationId: "",
+    initialName: "",
+    initialBirthdate: "",
+    initialPhonenumber: "",
+    initialAddress: "",
+    initialAbbr: "",
+    initialCourse: "",
+    initialSeminargroup: "",
+    initialPosition: ""
+  }
+
   beforeEach(() => {
-    cy.mount(<ApplicationForm />);
+    // components get wrapped inside Memory Router see commands.jsx
+    cy.mount(<ApplicationForm />, {
+      routerProps: {
+        initialEntries: [{
+          pathname: '/test-path',
+          state: initialState
+        }]
+      }
+    });
   });
 
   it('should render all input fields', () => {

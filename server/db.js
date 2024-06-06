@@ -62,6 +62,49 @@ const deleteApplication = (request, response) => {
     });
 }
 
+// update application with id
+const updateApplication = (request, response) => {
+    const applicationId = parseInt(request.params.id)
+
+    // gets errors according to validation
+    const errors = validationResult(request);
+
+    // respond with error code in case of invalid data
+    if (!errors.isEmpty()) { // NOT WORKING PROPERLY??
+        return response.status(422).json({ errors: errors.array() });
+    }
+
+    // convert date format DD/MM/YYYY to YYYY-MM-DD to safe in database
+    const formattedDate = convertDateFormat(request.body.birthdate);
+
+    // get uni abbreviation from email address (= req.body.abbr)
+    const  uniAbbr = convertUniAbbr(request.body.abbr);
+
+    const { name, phonenumber, address, course, seminargroup, position } = request.body;
+
+    client.query(`
+        UPDATE applications 
+        SET 
+            name = $1, 
+            birthdate = $2,
+            phonenumber = $3,
+            address = $4,
+            abbr = $5,
+            course = $6,
+            seminargroup = $7,
+            position = $8
+        WHERE
+            id = $9
+        `, [name, formattedDate, phonenumber, address, uniAbbr, course, seminargroup, position, applicationId], (error) => {
+        if (error) {
+            console.error(error);
+            response.status(500).json({ error: 'Internal Server Error' });
+            return;
+        }
+        response.status(200).send(`Application updated with ID: ${applicationId}`);
+    });
+}
+
 // add new application to database
 const createApplication = (request, response) => {
     // gets errors according to validation
@@ -96,5 +139,6 @@ module.exports = {
     createTable,
     getApplications,
     deleteApplication,
+    updateApplication,
     createApplication
 };

@@ -23,3 +23,20 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+import { mount } from 'cypress/react'
+import { MemoryRouter } from 'react-router-dom'
+import React from 'react';
+
+// components that consum a hook or component from React Router
+// need to have access to a React Router provider
+// ApplicationForm uses useLocation from React Router
+// the ApplicationForm component gets wrapped inside the MemoryRouter
+// when the mount command is written
+Cypress.Commands.add('mount', (component, options = {}) => {
+    const { routerProps = { initialEntries: ['/'] }, ...mountOptions } = options
+  
+    const wrapped = <MemoryRouter {...routerProps}>{component}</MemoryRouter>
+  
+    return mount(wrapped, mountOptions)
+  })

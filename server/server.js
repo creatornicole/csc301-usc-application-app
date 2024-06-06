@@ -5,7 +5,7 @@ const cors = require('cors');
 // check is the primary function used to validate and sanitize input
 // validationResult is a function of the req and is used to return an obj containing all validation errors
 const { check } = require('express-validator'); // to validate and sanitize data
-const { createTable, getApplications, deleteApplication, createApplication } = require('./db.js'); // database file
+const { createTable, getApplications, deleteApplication, createApplication, updateApplication } = require('./db.js'); // database file
 const port = process.env.PORT; // define/find PORT inside .env
 
 const app = express()
@@ -80,6 +80,9 @@ app.post('/apply', applicationValidation, createApplication);
 
 // delete application with specified id
 app.delete('/delete/application/:id', deleteApplication)
+
+// update application with specified id
+app.put('/update/:id', applicationValidation, updateApplication);
 
 // starts express server and waits for incoming requests on the specified port
 app.listen(port, () => console.log(
