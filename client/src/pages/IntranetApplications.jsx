@@ -3,6 +3,7 @@ import IntranetNavbar from './IntranetNavbar'
 import Table from 'react-bootstrap/Table'
 import axios from 'axios'
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 // get possible team positions
 import { possiblePositions } from '../helper/positions.js';
 import { convertDateFormat } from '../helper/converter.js';
@@ -14,6 +15,9 @@ Displays received applications in table
 */
 function IntranetApplications() {
     const [applications, setApplications] = useState([]);
+
+    //const history = useHistory();
+    const navigate = useNavigate();
 
     // get applications from server/database
     useEffect(() => {
@@ -37,6 +41,23 @@ function IntranetApplications() {
         } catch (error) {
             console.error('Error deleting application: ', error);
         }
+    }
+
+    // enable update of application by redirecting to application form with set state variables
+    const handleUpdate = (id, name, birthdate, phonenumber, address, abbr, course, seminargroup, position) => {
+        navigate('/application', { 
+            state: {
+                applicationId: id,
+                initialName: name,
+                initialBirthdate: birthdate,
+                initialPhonenumber: phonenumber,
+                initialAddress: address,
+                initialAbbr: abbr,
+                initialCourse: course,
+                initialSeminargroup: seminargroup,
+                initialPosition: position,
+            }
+         });
     }
 
     // content of component: display received applications
@@ -75,8 +96,16 @@ function IntranetApplications() {
                                     <td>{application.seminargroup}</td>
                                     <td>{possiblePositions[application.position]}</td>
                                     <td>
-                                       <i onClick={() => handleDelete(application.id)}
-                                            className="fa-solid fa-user-minus"></i>
+                                        <i onClick={() => handleDelete(application.id)}
+                                            className="fa-solid fa-user-minus"
+                                            title="Delete Application">
+                                        </i>
+                                        <i onClick={() => handleUpdate(application.id, application.name, convertDateFormat(application.birthdate),
+                                                                        application.phonenumber, application.address, application.abbr, application.course,
+                                                                        application.seminargroup, possiblePositions[application.position])} 
+                                            className="fa-solid fa-pen-to-square"
+                                            title="Edit Application">
+                                        </i>
                                     </td>
                                 </tr>
                             ))

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { z } from 'zod'
+import { boolean, z } from 'zod'
 import axios from 'axios'
 import { Form, Button } from 'react-bootstrap'
+import { useLocation } from 'react-router-dom'
 // get possible team positions
 import { possiblePositions } from '../helper/positions.js';
 
@@ -15,17 +16,36 @@ Handles Submit/ Post Request to server
 
 */
 function ApplicationForm() {
+
+    const location = useLocation();
+
+    // change title according to location.state
+    const toUpdate = location.state !== null;
+    let title = "";
+    if (toUpdate) {
+        // admin is updating existing application
+        title = "Update Application";
+    } else {
+        // user is applying
+        title = "Apply for a Membership";
+    }
+
     // State Variables
     const positionPlaceholder = "Change to your desired position...";
     const [formData, setFormData] = useState({
-        name: "",
-        birthdate: "",
-        phonenumber: "",
-        address: "",
-        abbr: "",
-        course: "",
-        seminargroup: "",
-        position: positionPlaceholder
+        id: location.state?.applicationId ?? "",
+        name: location.state?.initialName ?? "",
+        birthdate: location.state?.initialBirthdate ?? "",
+        phonenumber: location.state?.initialPhonenumber ?? "",
+        address: location.state?.initialAddress ?? "",
+        abbr: location.state?.initialAbbr ? location.state?.initialAbbr + "@hs-mittweida.de" : "",
+        course: location.state?.initialCourse ?? "",
+        seminargroup: location.state?.initialSeminargroup ?? "",
+        position: location.state?.initialPosition ? 
+                    Object.keys(possiblePositions).find(
+                        key => possiblePositions[key] === location.state?.initialPosition
+                    ) :
+                    positionPlaceholder
     });
     const [successMsg, setSuccessMsg] = useState('');
     const [errMsg, setErrMsg] = useState(''); // display server-side error
@@ -88,15 +108,23 @@ function ApplicationForm() {
         document.querySelectorAll('.error').forEach(element => {
             element.innerHTML = '';
         });
+
         // perform input validation before sending data to server
         if(handleValidation()) {
             // send data to server if all input is validated on client-side
             try {
-                const response = await axios.post(`${import.meta.env.VITE_SERVER_API}/apply`, formData);
-                console.log('Form data submitted successfully:', response.data);
+                if (toUpdate) {
+                    // update application entry in database
+                    console.log(`${import.meta.env.VITE_SERVER_API}/update/${formData.id}`);
+                    const response = await axios.put(`${import.meta.env.VITE_SERVER_API}/update/${formData.id}`, formData);
+                    setSuccessMsg('<i class="fa-solid fa-check"></i> Application successfully updated');
+                } else {
+                    // add new application to database
+                    const response = await axios.post(`${import.meta.env.VITE_SERVER_API}/apply`, formData);
+                    setSuccessMsg('<i class="fa-solid fa-check"></i> Application successfully submitted');
+                }
                 // reset form and show message in case of successful submission
                 resetForm();
-                setSuccessMsg('<i class="fa-solid fa-check"></i> Application successfully submitted');
             } catch (error) {
                 if (error.response && error.response.status === 422) {
                     let validationErr = error.response.data.errors;
@@ -171,7 +199,7 @@ function ApplicationForm() {
     // content of component: display form
     return (
         <div className="mainContent">
-            <h1>Apply for a Membership</h1>
+            <h1>{title}</h1>
             <Form id="applicationForm" onSubmit={handleSubmit}>
                 <Form.Group id="inputName" className="form-group">
                     <Form.Label htmlFor="name">Name</Form.Label>

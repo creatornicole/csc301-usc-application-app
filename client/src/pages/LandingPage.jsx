@@ -19,8 +19,11 @@ function LandingPage() {
             />
             <h1>Technikum Mittweida <br/>Motorsport</h1>
             
-            <Button variant='primary'>
-                <Link className="link" to='application'>Get Involved</Link>
+            <Button variant="primary">
+                <Link 
+                    className="link" 
+                    to="application"
+                >Get Involved</Link>
             </Button>
         </header>
     );

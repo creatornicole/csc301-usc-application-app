@@ -21,8 +21,17 @@
             margin-top: 25px;
 
             i {
-                color: variables.$tmm-red;
-            }
+                padding: 0 10px;
+
+                &.fa-user-minus {
+                    color: variables.$tmm-red;
+                }
+    
+                &.fa-pen-to-square {
+                    color: variables.$dark-grey;
+                }
+    
+            }            
 
             td:hover {
                 cursor: pointer;
