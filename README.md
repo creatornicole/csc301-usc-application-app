@@ -1,5 +1,32 @@
 # csc301-assignment3
 
+# Received Feedback
+| Criteria | Pts | Comments | Improvements |
+|----------|-----|----------|--------------|
+| Framework, JavaScript, Build Tool | 12/13 | secure routing needs be handled for admin areas, good use of react features, great commenting, file and folder structure is good, good config in package.json file, data handled well within the app | |
+| Node.js Server with Express.js | 6/9 | Integration is good, Nice separation of routes and functions, does not follow RESTful principles, post, delete and put could all have sat under the applications route as the http method would define the action against the applications | do not use verbs within url endpoints, it is recommended to use nouns and use the methods to describe what should happen to the resource (see below) |
+| Database Integration and CRUD Operations | 3/3 | All CRUD operations used, Data is handled well, Good commenting | |
+| Security Basics | 2.5/3 | CORS on the server found, good sanitisation and validation, environment variables being used appropriately, next time: look at headers through a library called helmet, frontend admin login can be easily bypassed by navigating directly to http://localhost:5174/intranet | library helmet for headers, prevent bypassing of login |
+| Testing and Pipelines/Automation | 4/5 | .rest are not the best way to approach api testing (jest allows assertions against your responses which can be also run programmatically and further more allows for quality gates within deployment pipelines), great use of cypress, all tests had passed, thorough test cases | use jest |
+| Code Quality and Documentation | 4/4 | great documentation, good code commenting, file and folder structure is clean, improvement: put images for the readme under a docs folder | put readme images inside docs folder |
+| Project Functionality and Completeness | 3/3 | All features worked as expected without any major issues | |
+
+## URL Endpoints Improvement
+- current implementation of endpoints
+    - GET /applications
+    - POST /apply
+    - DELETE /delete/application/:id
+    - PUT /update/:id
+- considering all operations are against the application ressource, the endpoints can be improved as follows:
+    - GET /application
+    - GET /application/:id
+    - POST /application
+    - DELETE /application/:id
+    - PUT /application/:id
+- the second implementation of endpoints allows developers to easily understand what the code is doing and against what ressource, without the need to know the context of the app
+
+---
+
 # About the App
 This web app is intended to simplify the application process for the Formula Student Team "Technikum Mittweida Motorsprot" at the University of Applied Sciences Mittweida. For this purpose, a start page in the style of the newly created website is implemented, which redirects to an application form. From this page, the admin login data can be used to access the applications received.
 
